@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link href="https://ssl.gstatic.com/docs/script/css/add-ons.css" rel="stylesheet">
+  </head>
+  <body>
+    <div>
+      <button id="send">Send for Translation</button>
+      <br>
+      <br>
+      <button id="checkStatus">Check Status</button>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script>
+    $('#send').click(function () {
+      google.script.run.createTranslate();
+    });
+    
+    $('#checkStatus').click(function () {
+      google.script.run.checkStatus();
+    });
+    </script>
+  </body>
+</html>

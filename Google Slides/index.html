@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link 
+      href="https://ssl.gstatic.com/docs/script/css/add-ons.css" 
+      rel="stylesheet"
+    >
+    <style>
+      .data__table {
+        width: 100%;
+        margin: 18px auto;
+      }
+
+      .data__header {
+        margin: 0 3px;
+        padding: 0px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .data__header-date {
+        margin: 0 2px;
+        width: 50px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+
+      .data__values {
+        text-align: center;
+        margin: 0 5px;
+        height: 15px;
+        font-size: 10px;
+      }
+
+      .wezen__logo {
+        display: block;
+        margin: 0 auto;
+      }
+
+      .data__input {
+        margin-left: 10px !important;
+      }
+
+      tr.data__row-input td {
+       border: none;
+      }
+
+      .data__input-label {
+        font-size: 12px;
+      }
+
+      .data__status-done {
+        color: white;
+        width: 48px;
+        padding: 0px;
+        border-radius: 10px;
+        background-color: green;
+      }
+
+      .data__status-inprogress {
+        color: white;
+        width: 40px;
+        padding: 0px;
+        border-radius: 10px;
+        background-color: red;
+      }
+
+      .data__target-language {
+        color: white;
+        width: 40px;
+        padding: 0px;
+        border-radius: 10px;
+        background-color: blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img 
+        class="wezen__logo"
+        src="https://www.wezen.com/assets/images/favicon/wezen_favicon-64x64.ico"
+      />
+      <br><br>
+      <h3><strong>Translation History:</strong></h3>
+      <table class="data__table">
+        <tr>
+          <th
+                  class="data__header"
+          >
+            Traget <br> Language
+          </th>
+
+          <th
+                  class="data__header"
+          >
+            Completed
+          </th>
+
+          <th
+                  class="data__header"
+          >
+            Word <br> Count
+          </th>
+
+          <th
+                  class="data__header-date"
+          >
+            Estimated <br> Delivery
+          </th>
+
+          <th
+                  class="data__header-date"
+          >
+            Created
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <p
+              id="target-language" 
+              class="data__values"
+              data-sent="false"
+            >
+            </p>
+          </td>
+          <td>
+            <p
+              id="status" 
+              class="data__values"
+              data-sent="false"
+            >
+            </p>
+          </td>
+          <td>
+            <p 
+              id="word-count" 
+              class="data__values"
+            >
+            </p>
+          </td>
+          <td>
+            <p 
+              id="eta" 
+              class="data__values"
+            >
+            </p>
+          </td>
+          <td>
+            <p 
+              id="date-created" 
+              class="data__values"
+            >
+            </p>
+          </td>
+        </tr>
+      </table>
+      <hr>
+      <br>
+      <br>
+      <form>
+        <h3>
+          <strong>
+            Settings
+          </strong>
+        </h3>
+
+        <table>
+          <tr
+                  class="data__row-input"
+          >
+            <td>
+              <p
+                      class="data__input-label"
+              >
+                Target Language
+              </p>
+            </td>
+
+            <td>
+              <select 
+                id="targetLanguage"
+                class="data__input"
+                required
+              >
+                <option
+                        value="fr-FR"
+                >
+                  fr-FR
+                </option>
+
+                <option
+                        value="en-US"
+                >
+                  en-US
+                </option>
+
+                <option
+                        value="pt-BR"
+                >
+                  pt-BR
+                </option>
+
+                <option
+                        value="fr-CA"
+                >
+                  fr-CA
+                </option>
+
+                <option
+                        value="es-AR"
+                >
+                  es-AR
+                </option>
+
+                <option
+                        value="es-MX"
+                >
+                  es-MX
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr
+                  class="data__row-input"
+          >
+            <td
+                    class="data__input-label"
+            >
+              <label
+                      for="url"
+              >
+                Url
+              </label>
+            </td>
+            
+            <td>
+              <input 
+                type="text" 
+                id="url" 
+                class="data__input"
+                value=""
+                required
+              />
+            </td>
+          </tr>
+          <tr
+                  class="data__row-input"
+          >
+            <td
+                    class="data__input-label"
+            >
+              <label
+                      for="apiKey"
+              >
+                API Key
+              </label>
+            </td>
+            
+            <td>
+              <input 
+                type="text" 
+                id="apiKey"
+                class="data__input"
+                value="" 
+                required
+              />
+            </td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <div>
+          <button 
+            type="submit"
+            id="send" 
+            class="action"
+          >
+            Send to Wezen
+          </button>
+          
+          <button 
+            type="button"
+            id="checkStatus" 
+            class="action"
+          >
+             Update Status
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <script 
+      src="https://code.jquery.com/jquery-3.4.1.js" 
+      integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" 
+      crossorigin="anonymous"
+    >
+    </script>
+    <script>
+      /**
+       * Get the target Language on open of add-on
+       * 
+       * @param targetLanguage {string} - the target language of the translation
+       */
+      function getTargetLanguage(targetLanguage) {
+        if ($('#target-language').data('sent') !== false) {
+          $('#target-language').text(targetLanguage).addClass('data__target-language');
+        }
+      }
+      
+      google.script.run.withSuccessHandler(getTargetLanguage).getTranslationTargetLanguage();
+      
+      /**
+       * Get the status of translation on open of add-on
+       *
+       * @param isDelivered {boolean}
+       */
+      function getStatus(isDelivered) {
+        if ($('#status').data('sent') !== false) {
+          if (isDelivered) {
+            $('#status').text('YES').addClass('data__status-done');
+          } else {
+            $('#status').text('NO').addClass('data__status-inprogress');
+          }
+        }
+      }
+      
+      google.script.run.withSuccessHandler(getStatus).isDelivered();
+      
+      /**
+       * Get word count on open
+       *
+       * @param wordCount {number} - the number of words in the presentation.
+       */
+      function getWordCount(wordCount) {
+        $('#word-count').text(wordCount);
+      }
+      
+      google.script.run.withSuccessHandler(getWordCount).getWordCount();
+      
+      /**
+       * Get the estimate for the current file
+       *
+       * @param deliveryDate {string} - the estimated delivery date of translation
+       */
+      function getDeliveryDate(deliveryDate) {
+        $('#eta').text(deliveryDate);
+      }
+      
+      google.script.run.withSuccessHandler(getDeliveryDate).getDeliveryDate();
+      
+      /**
+       * Get the timestamp the translation request was created
+       * 
+       * createdAt {string} - the date the request for translation was created
+       */
+      function getCreatedAt(createdAt) {
+        if (createdAt !== undefined) {
+          $('#date-created').text(createdAt);
+        }
+      }
+      
+      google.script.run.withSuccessHandler(getCreatedAt).getDateCreated();
+      
+      /**
+       * Gets and sets the data-sent attribute.
+       *
+       * @param dataAttrValue {string} - value of data-sent attribute.
+       */
+      function getDataAttr(dataAttrValue) {
+        if (dataAttrValue !== undefined) {
+          $('#target-language').data('sent', dataAttrValue);
+          $('#status').data('sent', dataAttrValue);
+        }
+      }
+      
+      google.script.run.withSuccessHandler(getDataAttr).getDataSentAttr();
+     
+//      /**
+//       * Sets the value of URL input field with the value stored in the properties.
+//       *
+//       * @param url {string} - property stored.
+//       */
+//      function setUrl(url) {
+//        $('#url').val(url);
+//      }
+//      
+//      google.srcipt.run.withSuccessHandler(setUrl).getUrlProperty();
+//      
+//      /**
+//       * Sets the value of API Key input field with the value stored in the properties.
+//       *
+//       * @param apiKey {string} - property stored.
+//       */
+//      function getApiKey(apiKey) {
+//        $('#apiKey').val(apiKey);
+//      }
+//    
+//      google.script.run.withSuccessHandler(getApiKey).getApiKeyProperty();
+      
+      // Sends the content of the presntation for translation.
+      $('#send').click(function() {
+        if ($('#apiKey').val() && $('#url').val() !== '') {
+         /** 
+           * Get the timestamp on send for translation 
+           *
+           * @param createdAt {string} - the date the request for translation was created
+           */
+          function getCreationDate(createdAt) {
+            $('#date-created').text(createdAt);
+          }
+      
+          google.script.run.withSuccessHandler(getCreationDate).sendForTranslation(
+            $('#url').val(), 
+            $('#apiKey').val(),
+            $('#targetLanguage').find(':selected').val()
+          );
+        
+          function getTargetLanguage(targetLanguage) {
+              $('#target-language').text(targetLanguage).addClass('data__target-language');
+          }
+        
+          google.script.run.withSuccessHandler(getTargetLanguage).getTranslationTargetLanguage();
+          
+          /**
+           * Get the status of translation on send for translation
+           * 
+           * @param isDelivered {boolean}
+           */
+          function getStatus(isDelivered) {
+            if(isDelivered) {
+              $('#status').text('YES').addClass('data__status-done');
+            } else {
+              $('#status').text('NO').addClass('data__status-inprogress');
+            }
+          }
+        
+          google.script.run.withSuccessHandler(getStatus).isDelivered();
+          
+          /**
+           * Gets and sets the data-sent attribute.
+           *
+           * @param dataAttr {string} - value of data-sent attribute.
+           */
+          function setDataAttr(dataAttr) {
+            $('#target-language').data('sent', dataAttr);
+            $('#status').data('sent', dataAttr);
+          }
+          
+          google.script.run.withSuccessHandler(setDataAttr).setDataSentAttr();
+        }
+      });
+      
+      $('#checkStatus').click(function() {
+        google.script.run.getTranslation();
+      });
+    </script>
+  </body>
+</html>
