@@ -1,0 +1,11 @@
+<script>
+  window.addEventListener('load', function() {
+    $('#send').click(function(){
+      google.script.run.getFile(
+        $('#fileId').val(),
+        $('#apiKey').val(),
+        $('#url').val()
+      );
+    });
+  });
+</script>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!= include('Stylesheet'); ?>
+  </head>
+  <body>
+  <div class="centered">
+    <form>
+    <table>
+      <tr>
+        <td>
+          <label for="url">Url</label>
+        </td>
+        <td>
+          <input type="text" id="url" value="" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="apiKey">API Key </label>
+        </td>
+        <td>
+          <input type="text" id="apiKey" value="" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="fileId">File ID </label>
+        </td>
+        <td>
+          <input type="text" id="fileId" value="" required/>
+        </td>
+      </tr>
+    </table>
+  
+    <button type="button" id="send">Send to Wezen</button>
+    <button type="button" id="checkStatus">Update Status</button>
+    </form>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <?!= include('Javascript'); ?>
+  </body>
+</html>
